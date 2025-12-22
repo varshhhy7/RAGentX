@@ -9,4 +9,10 @@ wheels/
 # Virtual environments
 .venv
 
+
+# Environment variables (any folder)
 .env
+.env.*
+**/.env
+**/.env.*
+
