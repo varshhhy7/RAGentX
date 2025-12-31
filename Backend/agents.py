@@ -1,5 +1,5 @@
 from typing import TypeDict , List , Literal
-from langchain_core.messages import BaseMessage
+from langchain_core.messages import BaseMessage, HumanMessage, AIMessage
 from pydantic import BaseModel, Field
 import os
 from config import GROQ_API_KEY, TRAVILY_API_KEY , PINECONE_API_KEY
@@ -27,6 +27,14 @@ class AgentState(TypeDict, total=False):
     web:str
     web_search_enabled: bool
 
+
+def router_node(state:AgentState) -> AgentState:
+    print("Entering Router Node")
+    query=next(m.content for m in reversed(state["messages"]) if isinstance(m , HumanMessage))
+    if isinstance(m , HumanMessage):
+        for m in reversed(state["messages"]):
+            next(m.content for m in reversed(state["messages"]) if isinstance(m , HumanMessage))
+    else:
 
 
 
